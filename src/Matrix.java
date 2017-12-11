@@ -21,9 +21,11 @@ public class Matrix {
 		for (int x=0; x<size; x++) {
 			for (int y=0; y<size; y++) {
 				originalMatrix[x][y] = new Random().nextInt(9)+1;
+				puzzleMatrix[x][y] = originalMatrix[x][y];
 			}
 		}
-		puzzleMatrix = originalMatrix.clone();
+		//puzzleMatrix = originalMatrix.clone();
+		printOriginal();
 	}
 	
 	private void generate() {
@@ -34,6 +36,10 @@ public class Matrix {
 					puzzleMatrix[x][y] = 0;
 			}
 		}
+	}
+	
+	public int[][] getMatrix() {
+		return originalMatrix;
 	}
 	
 	public void printOriginal() {

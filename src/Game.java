@@ -13,12 +13,15 @@ public class Game extends Application {
 	private Button[][] grid;
 	private int size = 5;
 	private Stage stage;
+	private int[][] matrix;
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	public Game() {
+		Matrix mx = new Matrix(size);
+		matrix = mx.getMatrix();
 		root = new GridPane();
 	    grid = new Button[size][size];
 	}
@@ -31,7 +34,7 @@ public class Game extends Application {
 	                Random rand = new Random(); 
 	                
 	                grid[x][y] = new Button();   
-	                grid[x][y].setText(x+","+y); 
+	                grid[x][y].setText(String.valueOf(matrix[x][y])); 
 	                grid[x][y].setOnAction(new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(ActionEvent event) {
