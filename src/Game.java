@@ -43,7 +43,7 @@ public class Game extends Application {
 	                		"-fx-border-width: 3; "+
 	                		"-fx-border-color: #ff4500; "+
 	                		"-fx-background-color: transparent; "+
-	                        "-fx-font-size: 30px; "+
+	                        "-fx-font-size: 38px; "+
 	                        "-fx-text-fill: #ff4500; "
 	                );
 
@@ -57,14 +57,14 @@ public class Game extends Application {
 	                    			 "-fx-border-width: 3; "+
 	                	             "-fx-border-color: #1B1B1B; "+
 	                    			 "-fx-background-color: transparent; "+
-	                    			 "-fx-font-size: 30px; "+
+	                    			 "-fx-font-size: 38px; "+
 	             	                 "-fx-text-fill: #1B1B1B; ");
 	                    } else {
 	                    	 grid[a][b].setStyle( 
 	                    			 "-fx-border-width: 3; "+
 	             	                 "-fx-border-color: #ff4500; "+
 	                    			 "-fx-background-color: transparent; "+
-	             	                 "-fx-font-size: 30px; "+
+	             	                 "-fx-font-size: 38px; "+
 	             	                 "-fx-text-fill: #ff4500; ");
 	                    }
 	                }});
