@@ -10,12 +10,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 15;
+	private int size = 5;
 	private Stage stage;
 	private int[][] matrix;
 	
@@ -36,21 +37,44 @@ public class Game extends Application {
 	    for(int y=0; y<size; y++) {
 	    	for(int x=0; x<size; x++) {
 	                Random rand = new Random(); 
-	                
-	                grid[x][y] = new Button(); 
+	                grid[x][y] = new Button();
+	                grid[x][y].setShape(new Circle(5));
+	                grid[x][y].setStyle(
+	                		"-fx-border-width: 3; "+
+	                		"-fx-border-color: #ff4500; "+
+	                		"-fx-background-color: transparent; "+
+	                        "-fx-font-size: 30px; "+
+	                        "-fx-text-fill: #ff4500; "
+	                );
+
 	                grid[x][y].setText(String.valueOf(matrix[x][y])); 
-	                grid[x][y].setOnAction(new EventHandler<ActionEvent>() {
+	                final int a = x, b = y;
+	                grid[a][b].setOnAction(new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(ActionEvent event) {
-	                        System.out.println("yeheei");
+	                    	if (grid[a][b].getStyle().contains("#ff4500")) {
+	                    		grid[a][b].setStyle( 
+	                    			 "-fx-border-width: 3; "+
+	                	             "-fx-border-color: #1B1B1B; "+
+	                    			 "-fx-background-color: transparent; "+
+	                    			 "-fx-font-size: 30px; "+
+	             	                 "-fx-text-fill: #1B1B1B; ");
+	                    } else {
+	                    	 grid[a][b].setStyle( 
+	                    			 "-fx-border-width: 3; "+
+	             	                 "-fx-border-color: #ff4500; "+
+	                    			 "-fx-background-color: transparent; "+
+	             	                 "-fx-font-size: 30px; "+
+	             	                 "-fx-text-fill: #ff4500; ");
 	                    }
-	                });
+	                }});
 	                root.add(grid[x][y], y, x);
+	                root.setMargin(grid[x][y], new Insets(10));
 	            }
 	    }        
 
 	    BorderPane border = new BorderPane();
-	    border.setStyle("-fx-background-color: #9acd32;");
+	    border.setStyle("-fx-background-color: black;");
 	    border.setTop(addHBox());
 	    border.setBottom(addHBox());
 	    border.setLeft(addVBox()); 
@@ -66,14 +90,14 @@ public class Game extends Application {
 	
 	private HBox addHBox() {
 		HBox hbox = new HBox();
-	    hbox.setStyle("-fx-background-color: #6495ed;");
+	    hbox.setStyle("-fx-background-color: black;");
 	    hbox.setPrefSize(500, 100);
 	    return hbox;
 	}
 	
 	private VBox addVBox() {
 		VBox vbox = new VBox();
-	    vbox.setStyle("-fx-background-color: #6495ed;");
+	    vbox.setStyle("-fx-background-color: black;");
 	    vbox.setPrefSize(100, 300);
 	    return vbox;
 	}

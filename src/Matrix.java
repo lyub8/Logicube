@@ -36,6 +36,7 @@ public class Matrix {
 					puzzleMatrix[x][y] = 0;
 			}
 		}
+		printGenerated();
 	}
 	
 	public int[][] getMatrix() {
@@ -49,6 +50,7 @@ public class Matrix {
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 	
 	public void printGenerated() {
