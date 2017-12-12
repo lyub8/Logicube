@@ -19,14 +19,19 @@ public class Game extends Application {
 	private int size = 5;
 	private Stage stage;
 	private int[][] matrix;
+	private int[][] solution;
+	private int[][] play;
+	private Matrix mx;
 	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
 	public Game() {
-		Matrix mx = new Matrix(size);
+		mx = new Matrix(size);
 		matrix = mx.getMatrix();
+		solution = mx.getSolution();
+		play = matrix.clone();
 		root = new GridPane();
 	    grid = new Button[size][size];
 	}
@@ -52,6 +57,7 @@ public class Game extends Application {
 	                grid[a][b].setOnAction(new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(ActionEvent event) {
+	                    	System.out.println(matrix[a][b]);
 	                    	if (grid[a][b].getStyle().contains("#ff4500")) {
 	                    		grid[a][b].setStyle( 
 	                    			 "-fx-border-width: 3; "+
@@ -59,6 +65,7 @@ public class Game extends Application {
 	                    			 "-fx-background-color: transparent; "+
 	                    			 "-fx-font-size: 38px; "+
 	             	                 "-fx-text-fill: #1B1B1B; ");
+	                    		play[a][b] = 0;
 	                    } else {
 	                    	 grid[a][b].setStyle( 
 	                    			 "-fx-border-width: 3; "+
@@ -66,7 +73,14 @@ public class Game extends Application {
 	                    			 "-fx-background-color: transparent; "+
 	             	                 "-fx-font-size: 38px; "+
 	             	                 "-fx-text-fill: #ff4500; ");
+	                    	 play[a][b] = matrix[a][b];
 	                    }
+	                    if (java.util.Arrays.deepEquals(play, solution)) {
+	                    	System.out.println("WINNNN");
+	                    } else {
+	                    	mx.print(play);
+	                    }
+	                    
 	                }});
 	                root.add(grid[x][y], y, x);
 	                root.setMargin(grid[x][y], new Insets(10));

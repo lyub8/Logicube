@@ -25,7 +25,7 @@ public class Matrix {
 			}
 		}
 		//puzzleMatrix = originalMatrix.clone();
-		printOriginal();
+		print(originalMatrix);
 	}
 	
 	private void generate() {
@@ -36,29 +36,25 @@ public class Matrix {
 					puzzleMatrix[x][y] = 0;
 			}
 		}
-		printGenerated();
+		print(puzzleMatrix);
 	}
 	
 	public int[][] getMatrix() {
 		return originalMatrix;
 	}
 	
-	public void printOriginal() {
+	
+	public int[][] getSolution() {
+		return puzzleMatrix;
+	}
+	
+	public void print(int[][] matrix) {
 		for (int x=0; x<size; x++) {
 			for (int y=0; y<size; y++) {
-				System.out.print(originalMatrix[x][y]+" ");
+				System.out.print(matrix[x][y]+" ");
 			}
 			System.out.println();
 		}
 		System.out.println();
-	}
-	
-	public void printGenerated() {
-		for (int x=0; x<size; x++) {
-			for (int y=0; y<size; y++) {
-				System.out.print(puzzleMatrix[x][y]+" ");
-			}
-			System.out.println();
-		}
 	}
 }
