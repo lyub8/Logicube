@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 5;
+	private int size = 4;
 	private Stage stage;
 	private int[][] matrix;
 	private int[][] solution;
@@ -31,9 +31,20 @@ public class Game extends Application {
 		mx = new Matrix(size);
 		matrix = mx.getMatrix();
 		solution = mx.getSolution();
-		play = matrix.clone();
+		play = givePlayMatrix();
 		root = new GridPane();
 	    grid = new Button[size][size];
+	}
+	
+	private int[][] givePlayMatrix() {
+		int[][] test = new int[size][size];
+		
+		for(int x=0; x<size; x++) {
+	    	for(int y=0; y<size; y++) {
+	    		test[x][y] = matrix[x][y];
+	    	}
+	    }
+		return test;
 	}
 	
 	public void start(Stage primaryStage) {
