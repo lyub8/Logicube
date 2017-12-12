@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -87,7 +89,11 @@ public class Game extends Application {
 	                    	 play[a][b] = matrix[a][b];
 	                    }
 	                    if (java.util.Arrays.deepEquals(play, solution)) {
-	                    	System.out.println("WINNNN");
+	                    	Alert alert = new Alert(AlertType.INFORMATION);
+	                    	alert.setTitle("Winner");
+	                    	alert.setHeaderText(null);
+	                    	alert.setContentText("Congratulations! You solved the puzzle :)");
+	                    	alert.showAndWait();
 	                    } else {
 	                    	mx.print(play);
 	                    }
