@@ -30,13 +30,35 @@ public class Matrix {
 	
 	private void generate() {
 		for (int x=0; x<size; x++) {
+			int sumRow = 0;
 			for (int y=0; y<size; y++) {
 				int chance = new Random().nextInt(2);
 				if (chance == 1) 
 					puzzleMatrix[x][y] = 0;
+				sumRow += puzzleMatrix[x][y];
 			}
+			sums.add(sumRow);
 		}
 		print(puzzleMatrix);
+		sumCols();
+		printSums();
+	}
+	
+	private void sumCols() {
+		for (int y=0; y<size; y++) {
+			int sumCol = 0;
+			for (int x=0; x<size; x++) {
+				sumCol += puzzleMatrix[x][y];
+			}
+			sums.add(sumCol);
+		}
+	}
+	
+	private void printSums() {
+		for (int x=0; x<size; x++) {
+			System.out.println("Sum of row "+x+" is: "+sums.get(x));
+			System.out.println("Sum of col "+x+" is: "+sums.get(x+size));
+		}
 	}
 	
 	public int[][] getMatrix() {
@@ -46,6 +68,10 @@ public class Matrix {
 	
 	public int[][] getSolution() {
 		return puzzleMatrix;
+	}
+	
+	public List<Integer> getSums() {
+		return sums;
 	}
 	
 	public void print(int[][] matrix) {

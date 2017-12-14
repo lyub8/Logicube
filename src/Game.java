@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class Game extends Application {
 	private GridPane root;
@@ -35,7 +36,7 @@ public class Game extends Application {
 		solution = mx.getSolution();
 		play = givePlayMatrix();
 		root = new GridPane();
-	    grid = new Button[size][size];
+	    grid = new Button[size+1][size+1];
 	}
 	
 	private int[][] givePlayMatrix() {
@@ -54,14 +55,14 @@ public class Game extends Application {
 		
 	    for(int y=0; y<size; y++) {
 	    	for(int x=0; x<size; x++) {
-	                Random rand = new Random(); 
 	                grid[x][y] = new Button();
-	                grid[x][y].setShape(new Circle(5));
+	                grid[x][y].setMinSize(50, 50);
+	                grid[x][y].setShape(new Circle(1.4));
 	                grid[x][y].setStyle(
 	                		"-fx-border-width: 3; "+
 	                		"-fx-border-color: #ff4500; "+
 	                		"-fx-background-color: transparent; "+
-	                        "-fx-font-size: 38px; "+
+	                        "-fx-font-size: 30px; "+
 	                        "-fx-text-fill: #ff4500; "
 	                );
 
@@ -76,7 +77,7 @@ public class Game extends Application {
 	                    			 "-fx-border-width: 3; "+
 	                	             "-fx-border-color: #1B1B1B; "+
 	                    			 "-fx-background-color: transparent; "+
-	                    			 "-fx-font-size: 38px; "+
+	                    			 "-fx-font-size: 30px; "+
 	             	                 "-fx-text-fill: #1B1B1B; ");
 	                    		play[a][b] = 0;
 	                    } else {
@@ -84,16 +85,59 @@ public class Game extends Application {
 	                    			 "-fx-border-width: 3; "+
 	             	                 "-fx-border-color: #ff4500; "+
 	                    			 "-fx-background-color: transparent; "+
-	             	                 "-fx-font-size: 38px; "+
+	             	                 "-fx-font-size: 30px; "+
 	             	                 "-fx-text-fill: #ff4500; ");
 	                    	 play[a][b] = matrix[a][b];
 	                    }
+	                    	
+	                    Pair<Boolean, Boolean> check = checkSums(a, b);
+	                    if (check.getKey()) {
+	                    	 grid[a][size].setStyle(
+	                         		"-fx-border-width: 2; "+
+	                         		"-fx-border-color: #9acd32; "+
+	                         		"-fx-background-color: transparent; "+
+	                                "-fx-font-size: 28px; "+
+	                                "-fx-text-fill: #9acd32; "+
+	                                "-fx-padding: 2;"
+	                         );
+	                    } else {
+	                    	grid[a][size].setStyle(
+	                         		"-fx-border-width: 2; "+
+	                         		"-fx-border-color: #a9a9a9; "+
+	                         		"-fx-background-color: transparent; "+
+	                                "-fx-font-size: 28px; "+
+	                                "-fx-text-fill: #a9a9a9; "+
+	                                "-fx-padding: 2;"
+	                         );
+	                    }
+	                    
+	                    if (check.getValue()) {
+	                    	 grid[size][b].setStyle(
+	                         		"-fx-border-width: 2; "+
+	                         		"-fx-border-color: #9acd32; "+
+	                         		"-fx-background-color: transparent; "+
+	                                "-fx-font-size: 28px; "+
+	                                "-fx-text-fill: #9acd32; "+
+	                                "-fx-padding: 2;"
+	                         );
+	                    } else {
+	                    	grid[size][b].setStyle(
+	                         		"-fx-border-width: 2; "+
+	                         		"-fx-border-color: #a9a9a9; "+
+	                         		"-fx-background-color: transparent; "+
+	                                "-fx-font-size: 28px; "+
+	                                "-fx-text-fill: #a9a9a9; "+
+	                                "-fx-padding: 2;"
+	                         );
+	                    }
+	                    
 	                    if (java.util.Arrays.deepEquals(play, solution)) {
 	                    	Alert alert = new Alert(AlertType.INFORMATION);
 	                    	alert.setTitle("Winner");
 	                    	alert.setHeaderText(null);
 	                    	alert.setContentText("Congratulations! You solved the puzzle :)");
 	                    	alert.showAndWait();
+	                    	System.exit(0);
 	                    } else {
 	                    	mx.print(play);
 	                    }
@@ -111,10 +155,13 @@ public class Game extends Application {
 	    border.setLeft(addVBox()); 
 	    border.setRight(addVBox()); 
 	    border.setCenter(root);
-	    root.setPadding(new Insets(100));
+	    root.setPadding(new Insets(10));
+	    border.getCenter().setStyle("-fx-alignment: center;");
+	    
+	    addSums();
 	    
 	    Scene scene = new Scene(border);
-	    stage.setTitle("Logicum");
+	    stage.setTitle("Logicube");
 	    stage.setScene(scene);
 	    stage.show();
 	}
@@ -122,6 +169,7 @@ public class Game extends Application {
 	private HBox addHBox() {
 		HBox hbox = new HBox();
 	    hbox.setStyle("-fx-background-color: black;");
+	    hbox.setMinSize(100, 20);
 	    hbox.setPrefSize(500, 100);
 	    return hbox;
 	}
@@ -129,7 +177,54 @@ public class Game extends Application {
 	private VBox addVBox() {
 		VBox vbox = new VBox();
 	    vbox.setStyle("-fx-background-color: black;");
+	    vbox.setMinSize(20, 60);
 	    vbox.setPrefSize(100, 300);
 	    return vbox;
+	}
+	
+	private void addSums() {
+		List<Integer> sums = mx.getSums();
+		for(int x=0; x<size; x++) {
+             createButton(x, size);
+			 createButton(size, x);
+             grid[x][size].setText(String.valueOf(sums.get(x)));
+             grid[size][x].setText(String.valueOf(sums.get(x+size)));
+		}
+	}
+	
+	private void createButton(int a, int b) {
+		Button button = new Button();
+		button.setMinSize(40, 40);
+        button.setStyle(
+        		"-fx-border-width: 2; "+
+        		"-fx-border-color: #a9a9a9; "+
+        		"-fx-background-color: transparent; "+
+                "-fx-font-size: 28px; "+
+                "-fx-text-fill: #a9a9a9; "+
+                "-fx-padding: 2;"
+        );
+        grid[a][b] = button;
+        root.add(grid[a][b], b, a);
+        root.setMargin(grid[a][b], new Insets(20));
+	}
+	
+	private Pair<Boolean, Boolean> checkSums(int row, int col) {
+		boolean rowCheck = false, colCheck = false;
+		int sum = 0;
+		for (int x=0; x<size; x++) 
+			sum += play[row][x];
+		System.out.println("Row sum of row "+row+"is: "+sum);
+		if (sum == Integer.parseInt(grid[row][size].getText()))
+			rowCheck = true;
+		
+		sum = 0;
+		for (int y=0; y<size; y++) 
+			sum += play[y][col];
+		System.out.println("Row sum of col "+col+"is: "+sum);
+		if (sum == Integer.parseInt(grid[size][col].getText()))
+			colCheck = true;
+	
+		Pair<Boolean, Boolean> pair = new Pair(rowCheck, colCheck);
+		return pair;
 	}
 }
