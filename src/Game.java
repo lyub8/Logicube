@@ -9,10 +9,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -156,18 +158,25 @@ public class Game extends Application {
 
 	    BorderPane border = new BorderPane();
 	    border.setStyle("-fx-background-color: black;");
-	    Label top = new Label("Click on any number to activate or deactivate them. Keep only the numbers you need so that every row and column equals their sum.");
-	    top.setFont(new Font("Courier", 25));
+	    Label top = new Label("Press any number to activate or disable it.");
+	    top.setFont(new Font("Courier", 22));
+	    top.setTextFill(Color.rgb(154,205,50));
 	    top.setWrapText(true);
 	    border.setTop(top);
 	    
-	    border.setBottom(addHBox());
+	    Label bot = new Label("Keep only the numbers needed so every row and column equals their sum.");
+	    bot.setFont(new Font("Courier", 22));
+	    bot.setTextFill(Color.rgb(154,205,50));
+	    bot.setPadding(new Insets(30));
+	    bot.setWrapText(true);
+	    border.setBottom(bot);
 	    border.setLeft(addVBox()); 
 	    border.setRight(addVBox()); 
 	    border.setCenter(root);
 	    root.setPadding(new Insets(10));
 	    border.getCenter().setStyle("-fx-alignment: center;");
 	    border.getTop().setStyle("-fx-alignment: center;");
+	    border.getBottom().setStyle("-fx-alignment: center;");
 	    
 	    addSums();
 	    
@@ -181,7 +190,7 @@ public class Game extends Application {
 		HBox hbox = new HBox();
 	    hbox.setStyle("-fx-background-color: black;");
 	    hbox.setMinSize(100, 20);
-	    hbox.setMaxSize(100, 20);
+	    hbox.setMaxSize(500, 100);
 	    return hbox;
 	}
 	
