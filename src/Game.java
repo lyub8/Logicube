@@ -8,18 +8,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 4;
+	private int size = 5;
 	private Stage stage;
 	private int[][] matrix;
 	private int[][] solution;
@@ -56,10 +57,11 @@ public class Game extends Application {
 	    for(int y=0; y<size; y++) {
 	    	for(int x=0; x<size; x++) {
 	                grid[x][y] = new Button();
-	                grid[x][y].setMinSize(50, 50);
-	                grid[x][y].setShape(new Circle(1.4));
+	                grid[x][y].setMaxSize(50, 50);
 	                grid[x][y].setStyle(
 	                		"-fx-border-width: 3; "+
+	                		"-fx-background-radius: 500; "+
+	                		"-fx-border-radius: 500; "+
 	                		"-fx-border-color: #ff4500; "+
 	                		"-fx-background-color: transparent; "+
 	                        "-fx-font-size: 30px; "+
@@ -76,6 +78,8 @@ public class Game extends Application {
 	                    		grid[a][b].setStyle( 
 	                    			 "-fx-border-width: 3; "+
 	                	             "-fx-border-color: #1B1B1B; "+
+	                	             "-fx-background-radius: 500; "+
+	                	             "-fx-border-radius: 500; "+
 	                    			 "-fx-background-color: transparent; "+
 	                    			 "-fx-font-size: 30px; "+
 	             	                 "-fx-text-fill: #1B1B1B; ");
@@ -84,6 +88,8 @@ public class Game extends Application {
 	                    	 grid[a][b].setStyle( 
 	                    			 "-fx-border-width: 3; "+
 	             	                 "-fx-border-color: #ff4500; "+
+	             	                 "-fx-background-radius: 500; "+
+	             	                 "-fx-border-radius: 500; "+
 	                    			 "-fx-background-color: transparent; "+
 	             	                 "-fx-font-size: 30px; "+
 	             	                 "-fx-text-fill: #ff4500; ");
@@ -150,13 +156,18 @@ public class Game extends Application {
 
 	    BorderPane border = new BorderPane();
 	    border.setStyle("-fx-background-color: black;");
-	    border.setTop(addHBox());
+	    Label top = new Label("Click on any number to activate or deactivate them. Keep only the numbers you need so that every row and column equals their sum.");
+	    top.setFont(new Font("monospace", 18));
+	    
+	    border.setTop(top);
+	    
 	    border.setBottom(addHBox());
 	    border.setLeft(addVBox()); 
 	    border.setRight(addVBox()); 
 	    border.setCenter(root);
 	    root.setPadding(new Insets(10));
 	    border.getCenter().setStyle("-fx-alignment: center;");
+	    border.getTop().setStyle("-fx-alignment: center;");
 	    
 	    addSums();
 	    
