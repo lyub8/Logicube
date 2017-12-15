@@ -157,8 +157,8 @@ public class Game extends Application {
 	    BorderPane border = new BorderPane();
 	    border.setStyle("-fx-background-color: black;");
 	    Label top = new Label("Click on any number to activate or deactivate them. Keep only the numbers you need so that every row and column equals their sum.");
-	    top.setFont(new Font("monospace", 18));
-	    
+	    top.setFont(new Font("Courier", 25));
+	    top.setWrapText(true);
 	    border.setTop(top);
 	    
 	    border.setBottom(addHBox());
@@ -181,7 +181,7 @@ public class Game extends Application {
 		HBox hbox = new HBox();
 	    hbox.setStyle("-fx-background-color: black;");
 	    hbox.setMinSize(100, 20);
-	    hbox.setPrefSize(500, 100);
+	    hbox.setMaxSize(100, 20);
 	    return hbox;
 	}
 	
