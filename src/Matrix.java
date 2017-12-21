@@ -64,14 +64,13 @@ public class Matrix {
 
 		for (int x = 0; x < size; x++) {
 			for (int y = 0; y < size; y++) {
-				System.out.println("Current sum: "+sum);
 				int next;
 				if (even)
 					next = originalMatrix[x][y];
 				else
 					next = originalMatrix[y][x];
 
-				if (x != 0 && y != 0) {
+				if (x != 0 || y != 0) {
 					if (next % 2 == 0) {
 						if (evenCount % 2 == 0)
 							sum += next;

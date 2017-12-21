@@ -22,7 +22,7 @@ import javafx.util.Pair;
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 2;
+	private int size = 3;
 	private Stage stage;
 	private int[][] matrix;
 	private int[][] solution;
