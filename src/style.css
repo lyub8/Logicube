@@ -1,0 +1,14 @@
+#start,#exit {
+  -fx-font-family: monospace; 
+  -fx-font-weight: bold; 
+  -fx-background-radius: 500; 
+  -fx-border-radius: 500; 
+  -fx-border-width: 3; 
+  -fx-border-color: #9acd32; 
+  -fx-background-color: transparent; 
+  -fx-font-size: 40px; 
+  -fx-text-fill: #9acd32; 
+  -fx-pref-height: 40px; 
+  -fx-pref-width: 300px; 
+  -fx-margin: 10px; 
+}

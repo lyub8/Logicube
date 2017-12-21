@@ -52,37 +52,41 @@ public class Matrix {
 			}
 			sums.add(sumCol);
 		}
+		System.out.println(mathMatrix() + " is the summ!");
 	}
 
 	private int mathMatrix() {
 		int sum = originalMatrix[0][0];
 		int evenCount = 0, oddCount = 0;
 		boolean even = false;
-		if (originalMatrix[0][0] % 2 == 0)
+		if (sum % 2 == 0)
 			even = true;
 
-		for (int y = 0; y < size; y++) {
-			for (int x = 0; x < size; x++) {
+		for (int x = 0; x < size; x++) {
+			for (int y = 0; y < size; y++) {
+				System.out.println("Current sum: "+sum);
 				int next;
 				if (even)
-					next = originalMatrix[y][x];
-				else
 					next = originalMatrix[x][y];
-				
-				if (next % 2 == 0) {
-					if (evenCount % 2 == 0)
-						sum += next;
-					else
-						sum *= next;
-					evenCount++;
-				} else {
-					if (oddCount % 2 == 0)
-						sum -= next;
-					else {
-						if (sum % next == 0)
-							sum /= next;
+				else
+					next = originalMatrix[y][x];
+
+				if (x != 0 && y != 0) {
+					if (next % 2 == 0) {
+						if (evenCount % 2 == 0)
+							sum += next;
+						else
+							sum *= next;
+						evenCount++;
+					} else {
+						if (oddCount % 2 == 0)
+							sum -= next;
+						else {
+							if (sum % next == 0)
+								sum /= next;
+						}
+						oddCount++;
 					}
-					oddCount++;
 				}
 			}
 		}
