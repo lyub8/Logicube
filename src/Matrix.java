@@ -32,8 +32,7 @@ public class Matrix {
 		for (int x = 0; x < size; x++) {
 			int sumRow = 0;
 			for (int y = 0; y < size; y++) {
-				int chance = new Random().nextInt(2);
-				if (chance == 1)
+				if (new Random().nextInt(2) == 1)
 					puzzleMatrix[x][y] = 0;
 				sumRow += puzzleMatrix[x][y];
 			}
