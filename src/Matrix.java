@@ -41,7 +41,7 @@ public class Matrix {
 		}
 		print(puzzleMatrix);
 		sumCols();
-		printSums();
+		//printSums();
 	}
 
 	private void sumCols() {

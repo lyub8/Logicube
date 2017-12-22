@@ -22,7 +22,7 @@ import javafx.util.Pair;
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 3;
+	private int size = 5;
 	private Stage stage;
 	private int[][] matrix;
 	private int[][] solution;
@@ -60,84 +60,30 @@ public class Game extends Application {
 	    	for(int x=0; x<size; x++) {
 	                grid[x][y] = new Button();
 	                grid[x][y].setMaxSize(50, 50);
-	                grid[x][y].setStyle(
-	                		"-fx-border-width: 3; "+
-	                		"-fx-background-radius: 500; "+
-	                		"-fx-border-radius: 500; "+
-	                		"-fx-border-color: #ff4500; "+
-	                		"-fx-background-color: transparent; "+
-	                        "-fx-font-size: 30px; "+
-	                        "-fx-text-fill: #ff4500; "
-	                );
-
+	                grid[x][y].setStyle(active());
 	                grid[x][y].setText(String.valueOf(matrix[x][y])); 
 	                final int a = x, b = y;
 	                grid[a][b].setOnAction(new EventHandler<ActionEvent>() {
 	                    @Override
 	                    public void handle(ActionEvent event) {
-	                    	System.out.println(matrix[a][b]);
 	                    	if (grid[a][b].getStyle().contains("#ff4500")) {
-	                    		grid[a][b].setStyle( 
-	                    			 "-fx-border-width: 3; "+
-	                	             "-fx-border-color: #1B1B1B; "+
-	                	             "-fx-background-radius: 500; "+
-	                	             "-fx-border-radius: 500; "+
-	                    			 "-fx-background-color: transparent; "+
-	                    			 "-fx-font-size: 30px; "+
-	             	                 "-fx-text-fill: #1B1B1B; ");
+	                    		grid[a][b].setStyle(disabled());
 	                    		play[a][b] = 0;
-	                    } else {
-	                    	 grid[a][b].setStyle( 
-	                    			 "-fx-border-width: 3; "+
-	             	                 "-fx-border-color: #ff4500; "+
-	             	                 "-fx-background-radius: 500; "+
-	             	                 "-fx-border-radius: 500; "+
-	                    			 "-fx-background-color: transparent; "+
-	             	                 "-fx-font-size: 30px; "+
-	             	                 "-fx-text-fill: #ff4500; ");
-	                    	 play[a][b] = matrix[a][b];
-	                    }
+	                    	} else {
+	                    		grid[a][b].setStyle(active());
+	                    		play[a][b] = matrix[a][b];
+	                    	}
 	                    	
 	                    Pair<Boolean, Boolean> check = checkSums(a, b);
-	                    if (check.getKey()) {
-	                    	 grid[a][size].setStyle(
-	                         		"-fx-border-width: 2; "+
-	                         		"-fx-border-color: #9acd32; "+
-	                         		"-fx-background-color: transparent; "+
-	                                "-fx-font-size: 28px; "+
-	                                "-fx-text-fill: #9acd32; "+
-	                                "-fx-padding: 2;"
-	                         );
-	                    } else {
-	                    	grid[a][size].setStyle(
-	                         		"-fx-border-width: 2; "+
-	                         		"-fx-border-color: #a9a9a9; "+
-	                         		"-fx-background-color: transparent; "+
-	                                "-fx-font-size: 28px; "+
-	                                "-fx-text-fill: #a9a9a9; "+
-	                                "-fx-padding: 2;"
-	                         );
-	                    }
+	                    if (check.getKey()) 
+	                    	 grid[a][size].setStyle(correctSum());
+	                    else 
+	                    	grid[a][size].setStyle(incorrectSum());
 	                    
-	                    if (check.getValue()) {
-	                    	 grid[size][b].setStyle(
-	                         		"-fx-border-width: 2; "+
-	                         		"-fx-border-color: #9acd32; "+
-	                         		"-fx-background-color: transparent; "+
-	                                "-fx-font-size: 28px; "+
-	                                "-fx-text-fill: #9acd32; "+
-	                                "-fx-padding: 2;"
-	                         );
-	                    } else {
-	                    	grid[size][b].setStyle(
-	                         		"-fx-border-width: 2; "+
-	                         		"-fx-border-color: #a9a9a9; "+
-	                         		"-fx-background-color: transparent; "+
-	                                "-fx-font-size: 28px; "+
-	                                "-fx-text-fill: #a9a9a9; "+
-	                                "-fx-padding: 2;"
-	                         );
-	                    }
+	                    if (check.getValue()) 
+	                    	 grid[size][b].setStyle(correctSum());
+	                    else 
+	                    	grid[size][b].setStyle(incorrectSum());
 	                    
 	                    if (java.util.Arrays.deepEquals(play, solution)) {
 	                    	Alert alert = new Alert(AlertType.INFORMATION);
@@ -146,9 +92,8 @@ public class Game extends Application {
 	                    	alert.setContentText("Congratulations! You solved the puzzle :)");
 	                    	alert.showAndWait();
 	                    	System.exit(0);
-	                    } else {
+	                    } else 
 	                    	mx.print(play);
-	                    }
 	                    
 	                }});
 	                root.add(grid[x][y], y, x);
@@ -188,14 +133,6 @@ public class Game extends Application {
 	    stage.show();
 	}
 	
-	private HBox addHBox() {
-		HBox hbox = new HBox();
-	    hbox.setStyle("-fx-background-color: black;");
-	    hbox.setMinSize(100, 20);
-	    hbox.setMaxSize(500, 100);
-	    return hbox;
-	}
-	
 	private VBox addVBox() {
 		VBox vbox = new VBox();
 	    vbox.setStyle("-fx-background-color: black;");
@@ -217,14 +154,7 @@ public class Game extends Application {
 	private void createButton(int a, int b) {
 		Button button = new Button();
 		button.setMinSize(40, 40);
-        button.setStyle(
-        		"-fx-border-width: 2; "+
-        		"-fx-border-color: #a9a9a9; "+
-        		"-fx-background-color: transparent; "+
-                "-fx-font-size: 28px; "+
-                "-fx-text-fill: #a9a9a9; "+
-                "-fx-padding: 2;"
-        );
+        button.setStyle(incorrectSum());
         grid[a][b] = button;
         root.add(grid[a][b], b, a);
         root.setMargin(grid[a][b], new Insets(20));
@@ -235,18 +165,53 @@ public class Game extends Application {
 		int sum = 0;
 		for (int x=0; x<size; x++) 
 			sum += play[row][x];
-		System.out.println("Row sum of row "+row+"is: "+sum);
 		if (sum == Integer.parseInt(grid[row][size].getText()))
 			rowCheck = true;
 		
 		sum = 0;
 		for (int y=0; y<size; y++) 
 			sum += play[y][col];
-		System.out.println("Row sum of col "+col+"is: "+sum);
 		if (sum == Integer.parseInt(grid[size][col].getText()))
 			colCheck = true;
 	
-		Pair<Boolean, Boolean> pair = new Pair(rowCheck, colCheck);
-		return pair;
+		return new Pair(rowCheck, colCheck);
+	}
+	
+	private String active() {
+		return   "-fx-border-width: 3; "+
+                 "-fx-border-color: #ff4500; "+
+                 "-fx-background-radius: 500; "+
+                 "-fx-border-radius: 500; "+
+                 "-fx-background-color: transparent; "+
+                 "-fx-font-size: 30px; "+
+                 "-fx-text-fill: #ff4500; ";
+	}
+	
+	private String disabled() {
+		return   "-fx-border-width: 3; "+
+	             "-fx-border-color: #1B1B1B; "+
+	             "-fx-background-radius: 500; "+
+	             "-fx-border-radius: 500; "+
+	             "-fx-background-color: transparent; "+
+	             "-fx-font-size: 30px; "+
+                 "-fx-text-fill: #1B1B1B; ";
+	}
+	
+	private String correctSum() {
+		return  "-fx-border-width: 2; "+
+         		"-fx-border-color: #9acd32; "+
+         		"-fx-background-color: transparent; "+
+                "-fx-font-size: 28px; "+
+                "-fx-text-fill: #9acd32; "+
+                "-fx-padding: 2;";
+	}
+	
+	private String incorrectSum() {
+		return  "-fx-border-width: 2; "+
+        		"-fx-border-color: #a9a9a9; "+
+        		"-fx-background-color: transparent; "+
+                "-fx-font-size: 28px; "+
+                "-fx-text-fill: #a9a9a9; "+
+                "-fx-padding: 2;";
 	}
 }
