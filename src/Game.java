@@ -42,7 +42,7 @@ public class Game extends Application {
 		solution = mx.getSolution();
 		play = givePlayMatrix();
 		root = new GridPane();
-		if (new Random().nextInt(2) == 1)
+		if (new Random().nextInt(3) == 1)
 			game = true;
 		if (game)
 			grid = new Button[size + 1][size + 1];
@@ -142,6 +142,7 @@ public class Game extends Application {
 			top.setText("Calculate the matrix starting from the top left corner. If even - go right; odd - go left!");
 			top.setWrapText(true);
 			border.setBottom(answerField());
+			border.setMargin(border.getBottom(), new Insets(50, 250, 50, 250));
 		}
 			
 		Scene scene = new Scene(border);
@@ -216,7 +217,8 @@ public class Game extends Application {
 				+ "-fx-font-size: 28px; " + "-fx-text-fill: #a9a9a9; " + "-fx-padding: 2;";
 	}
 	
-	private TextField answerField() {
+	private VBox answerField() {
+		VBox answer = new VBox();
 		final TextField text = new TextField();
 		text.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -228,6 +230,7 @@ public class Game extends Application {
         });
 		text.setPrefColumnCount(15);
 		text.setPromptText("Enter your answer here (only numbers accepted)");
+		
 		return text;
 	}
 }
