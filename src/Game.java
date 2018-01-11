@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -141,8 +142,7 @@ public class Game extends Application {
 		else {
 			top.setText("Calculate the matrix starting from the top left corner. If even - go right; odd - go left!");
 			top.setWrapText(true);
-			border.setBottom(answerField());
-			border.setMargin(border.getBottom(), new Insets(50, 250, 50, 250));
+			border.setBottom(createAnswerBox());
 		}
 			
 		Scene scene = new Scene(border);
@@ -217,8 +217,16 @@ public class Game extends Application {
 				+ "-fx-font-size: 28px; " + "-fx-text-fill: #a9a9a9; " + "-fx-padding: 2;";
 	}
 	
-	private VBox answerField() {
-		VBox answer = new VBox();
+	private HBox createAnswerBox() {
+		HBox answer = new HBox();
+		answer.setStyle("-fx-background-color: black; -fx-alignment: center;");
+		answer.getChildren().addAll(answerField(), submitButton());
+		answer.setMargin(answer.getChildren().get(0), new Insets(10));
+		answer.setMargin(answer.getChildren().get(0), new Insets(10));
+		return answer;
+	}
+	
+	private TextField answerField() {
 		final TextField text = new TextField();
 		text.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -229,8 +237,30 @@ public class Game extends Application {
             }
         });
 		text.setPrefColumnCount(15);
-		text.setPromptText("Enter your answer here (only numbers accepted)");
-		
+		text.setMaxWidth(250);
+		text.setMinHeight(60);
+		text.setPromptText("Enter answer here(Numbers only)");
 		return text;
+	}
+	
+	private Button submitButton() {
+		Button submit = new Button("Submit");	
+		submit.setStyle(normal());
+		submit.setOnMouseEntered(e -> submit.setStyle(hovered()));
+		submit.setOnMouseExited(e -> submit.setStyle(normal()));
+		submit.setOnAction(e -> System.out.println("are de"));
+		return submit;
+	}
+	
+	private String normal() {
+		return "-fx-font-family: monospace; "+ "-fx-font-weight: bold; " + "-fx-border-width: 3; " + "-fx-border-color: #9acd32; "
+				+ "-fx-background-color: transparent; " + "-fx-font-size: 30px; " + "-fx-text-fill: #9acd32; "
+				+ "-fx-pref-height: 30px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
+	}
+	
+	private String hovered() {
+		return "-fx-font-family: monospace; "+ "-fx-font-weight: bold; " + "-fx-border-width: 3; " + "-fx-border-color: black; "
+				+ "-fx-background-color: #9acd32; " + "-fx-font-size: 30px; " + "-fx-text-fill: black; "
+				+ "-fx-pref-height: 30px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
 	}
 }
