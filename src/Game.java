@@ -221,8 +221,8 @@ public class Game extends Application {
 		HBox answer = new HBox();
 		answer.setStyle("-fx-background-color: black; -fx-alignment: center;");
 		answer.getChildren().addAll(answerField(), submitButton());
-		answer.setMargin(answer.getChildren().get(0), new Insets(10));
-		answer.setMargin(answer.getChildren().get(0), new Insets(10));
+		answer.setMargin(answer.getChildren().get(0), new Insets(20));
+		answer.setMargin(answer.getChildren().get(0), new Insets(20));
 		return answer;
 	}
 	
@@ -239,6 +239,8 @@ public class Game extends Application {
 		text.setPrefColumnCount(15);
 		text.setMaxWidth(250);
 		text.setMinHeight(60);
+		text.setStyle("-fx-border-width: 3; " + "-fx-border-color: #ff4500; " + "-fx-background-color: transparent; " + "-fx-font-size: 30px; "
+				+ "-fx-text-fill: #ff4500; ");
 		text.setPromptText("Enter answer here(Numbers only)");
 		return text;
 	}
@@ -254,13 +256,13 @@ public class Game extends Application {
 	
 	private String normal() {
 		return "-fx-font-family: monospace; "+ "-fx-font-weight: bold; " + "-fx-border-width: 3; " + "-fx-border-color: #9acd32; "
-				+ "-fx-background-color: transparent; " + "-fx-font-size: 30px; " + "-fx-text-fill: #9acd32; "
-				+ "-fx-pref-height: 30px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
+				+ "-fx-background-color: transparent; " + "-fx-font-size: 35px; " + "-fx-text-fill: #9acd32; "
+				+ "-fx-pref-height: 35px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
 	}
 	
 	private String hovered() {
 		return "-fx-font-family: monospace; "+ "-fx-font-weight: bold; " + "-fx-border-width: 3; " + "-fx-border-color: black; "
-				+ "-fx-background-color: #9acd32; " + "-fx-font-size: 30px; " + "-fx-text-fill: black; "
-				+ "-fx-pref-height: 30px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
+				+ "-fx-background-color: #9acd32; " + "-fx-font-size: 36px; " + "-fx-text-fill: black; "
+				+ "-fx-pref-height: 36px; " + "-fx-pref-width: 250px; " + "-fx-margin: 10px; ";
 	}
 }
