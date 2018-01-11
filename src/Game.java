@@ -25,13 +25,14 @@ import javafx.util.Pair;
 public class Game extends Application {
 	private GridPane root;
 	private Button[][] grid;
-	private int size = 5;
+	private int sum = 0, size = 5;
 	private Stage stage;
 	private int[][] matrix;
 	private int[][] solution;
 	private int[][] play;
 	private Matrix mx;
 	private boolean game = false;
+	private TextField text;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -47,8 +48,10 @@ public class Game extends Application {
 			game = true;
 		if (game)
 			grid = new Button[size + 1][size + 1];
-		else
-			grid = new Button[size][size];
+		else {
+			grid = new Button[size][size]; 
+			sum = mx.getSum();
+		}
 	}
 
 	private int[][] givePlayMatrix() {
@@ -227,7 +230,7 @@ public class Game extends Application {
 	}
 	
 	private TextField answerField() {
-		final TextField text = new TextField();
+		text = new TextField();
 		text.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -236,12 +239,11 @@ public class Game extends Application {
                 }
             }
         });
-		text.setPrefColumnCount(15);
 		text.setMaxWidth(250);
 		text.setMinHeight(60);
 		text.setStyle("-fx-border-width: 3; " + "-fx-border-color: #ff4500; " + "-fx-background-color: transparent; " + "-fx-font-size: 30px; "
-				+ "-fx-text-fill: #ff4500; ");
-		text.setPromptText("Enter answer here(Numbers only)");
+				+ "-fx-text-fill: #ff4500; " + "-fx-prompt-text-fill: #ff4500;" + "-fx-alignment: center ;");
+		text.setPromptText("Enter answer");
 		return text;
 	}
 	
@@ -250,8 +252,15 @@ public class Game extends Application {
 		submit.setStyle(normal());
 		submit.setOnMouseEntered(e -> submit.setStyle(hovered()));
 		submit.setOnMouseExited(e -> submit.setStyle(normal()));
-		submit.setOnAction(e -> System.out.println("are de"));
+		submit.setOnAction(e -> check2nd());
 		return submit;
+	}
+	
+	private void check2nd() {
+		if (Integer.parseInt(text.getText()) == sum) 
+			System.out.println("Correct!");
+		else
+			System.out.println("Incorrect!");
 	}
 	
 	private String normal() {

@@ -5,7 +5,7 @@ import java.util.Random;
 public class Matrix {
 	private int[][] originalMatrix;
 	private int[][] puzzleMatrix;
-	private int size;
+	private int size, sum;
 	private List<Integer> sums;
 
 	public Matrix(int size) {
@@ -51,7 +51,7 @@ public class Matrix {
 			}
 			sums.add(sumCol);
 		}
-		System.out.println(mathMatrix() + " is the summ!");
+		sum = mathMatrix();
 	}
 
 	private int mathMatrix() {
@@ -88,6 +88,11 @@ public class Matrix {
 				}
 			}
 		}
+		return sum;
+	}
+	
+	public int getSum() {
+		System.out.println(sum + " is the summ!");
 		return sum;
 	}
 
