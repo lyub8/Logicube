@@ -98,14 +98,9 @@ public class Game extends Application {
 							else
 								grid[size][b].setStyle(incorrectSum());
 
-							if (java.util.Arrays.deepEquals(play, solution)) {
-								Alert alert = new Alert(AlertType.INFORMATION);
-								alert.setTitle("Winner");
-								alert.setHeaderText(null);
-								alert.setContentText("Congratulations! You solved the puzzle :)");
-								alert.showAndWait();
-								System.exit(0);
-							} else
+							if (java.util.Arrays.deepEquals(play, solution)) 
+								winAlert();
+							else
 								mx.print(play);
 
 						}
@@ -143,7 +138,7 @@ public class Game extends Application {
 		if (game) 
 			addSums();
 		else {
-			top.setText("Calculate the matrix starting from the top left corner. If even - go right; odd - go left!");
+			top.setText("Calculate the matrix starting from the top left corner. If even - go right; odd - go down!");
 			top.setWrapText(true);
 			border.setBottom(createAnswerBox());
 		}
@@ -234,7 +229,7 @@ public class Game extends Application {
 		text.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
+                if (!newValue.matches("([+-]{0,1})?[\\d]*")) {
                     text.setText(oldValue);
                 }
             }
@@ -257,10 +252,19 @@ public class Game extends Application {
 	}
 	
 	private void check2nd() {
-		if (Integer.parseInt(text.getText()) == sum) 
-			System.out.println("Correct!");
+		if (!text.getText().equals("") && Integer.parseInt(text.getText()) == sum) 
+			winAlert();
 		else
-			System.out.println("Incorrect!");
+			System.out.println("Incorrect answer! Try again!");
+	}
+	
+	private void winAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Winner");
+		alert.setHeaderText(null);
+		alert.setContentText("Congratulations! You solved the puzzle :)");
+		alert.showAndWait();
+		System.exit(0);
 	}
 	
 	private String normal() {
