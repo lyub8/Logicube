@@ -113,9 +113,10 @@ public class Game extends Application {
 
 		BorderPane border = new BorderPane();
 		border.setStyle("-fx-background-color: black;");
-		Label top = new Label("			Press any number to activate or disable it.");
+		Label top = new Label("Press any number to activate or disable it.");
 		top.setFont(new Font("Courier", 22));
 		top.setTextFill(Color.rgb(154, 205, 50));
+		top.setMaxSize(900, 200);
 		top.setPadding(new Insets(30));
 		top.setWrapText(true);
 		border.setTop(top);
@@ -138,7 +139,7 @@ public class Game extends Application {
 		if (game) 
 			addSums();
 		else {
-			top.setText("Calculate the matrix starting from the top left corner. If even - go right; odd - go down!");
+			top.setText("Calculate the matrix starting from the top left corner (current sum). If even - go right; odd - go down! For any even number you see add it to or multiply it by the current sum; for any odd - subtract it from or divide it by the current sum (if possible)");
 			top.setWrapText(true);
 			border.setBottom(createAnswerBox());
 		}
